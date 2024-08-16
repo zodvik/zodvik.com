@@ -4,6 +4,8 @@ date = 2024-08-16
 draft = false
 +++
 
+_[Share feedback here](https://github.com/zodvik/zodvik.com/issues)_
+
 Writing a technical document is surprisingly hard. That is not because of the skill to tell a story. It’s because writing forces a level of clarity that is easy to gloss over while thinking through a topic. 
 
 Folks who take interviews for engineers will relate to this. The candidate talks through a solution. You can tell their approach doesn’t work but the candidate doesn’t see it. When you ask them to write the code, it helps them understand that what they thought doesn’t pan out. 
@@ -120,4 +122,3 @@ In addition, add a section at the top of every document that covers who wrote it
 * [https://www.paulgraham.com/simply.html](https://www.paulgraham.com/simply.html)  
 * [https://x.com/destraynor/status/1258372157706510336?lang=en](https://x.com/destraynor/status/1258372157706510336?lang=en)  
 * [https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/](https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/)
-
