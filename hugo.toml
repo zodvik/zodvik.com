@@ -1,4 +1,35 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://zodvik.com/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'nikhil.bafna'
 theme = 'typo'
+
+[taxonomies]
+tag = 'tags'
+
+[params]
+theme = 'light'
+colorPalette = 'eink'
+hideHeader = true
+
+homeCollectionTitle = 'Posts'
+homeCollection = 'posts'
+
+paginationSize = 100
+listSummaries = false
+listDateFormat = '02 Jan 2006'
+
+breadcrumbs = true
+
+# Main menu pages
+[[params.menu]]
+name = "home"
+url = "/"
+
+[[params.menu]]
+name = "posts"
+url = "/posts"
+
+# Syntax highligth on code blocks
+[markup]
+[markup.highlight]
+style = 'bw'
