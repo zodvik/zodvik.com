@@ -44,7 +44,7 @@ Let’s say you’re writing about updates & work done post an outage. What you 
 Longer sentences tend to increase cognitive load. Above a certain point, you forget how a sentence started by the time you came to the end of it. 
 
 **Use ordinary words and simple sentences**  
-Lot of your readers won't be native English speakers. When you write in a fancy way to impress people, you're making them do extra work just so you can seem cool. 
+Lot of your readers may not have English as their first language. They would've sufficient technical understanding to get the ideas, but fancy writing get in their way.
 
 **Remove fluff**  
 If you remove a phrase or a statement from a document and the meaning still remains clear, remove it.
@@ -74,7 +74,10 @@ Adjectives often mask relevant details that then require more back and forth to 
 
 Ask the “So what” question to every sentence that you write. 
 
-For example, if you say “Our team delivered an automation tool in Q4”. Now ask – so what if your team built a tool? How does that help anyone? Now consider a rewrite of the sentence as “We built a tool that automated a business process that is now saving $50000 every month for the company.”
+For example, if you say “We built a new platform to run load tests". So what? How does it help me? Instead, we can 
+| Before | After | 
+|:-------|:------|
+| We built a new platform to run load tests | We built a new load test platform that let's anyone run load tests on demand reducing the time to set up from a day to 15 mins |
 
 The “So what” test can also lead to completely deleting sentences that don't add any value to the document. It also forces us to quantify the impact in our narrative.
 
