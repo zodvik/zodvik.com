@@ -4,7 +4,7 @@ date = 2024-08-16
 draft = false
 +++
 
-_[Share feedback here](https://github.com/zodvik/zodvik.com/issues)_
+[Share feedback here](https://github.com/zodvik/zodvik.com/issues) | [HN discussion](https://news.ycombinator.com/item?id=41298774)
 
 Writing a technical document is surprisingly hard. That is not because of the skill to tell a story. It’s because writing forces a level of clarity that is easy to gloss over while thinking through a topic. 
 
