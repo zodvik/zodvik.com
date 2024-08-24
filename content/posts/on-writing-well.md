@@ -35,7 +35,7 @@ Let’s say you’re writing about updates & work done post an outage. What you 
 
 |  | What to focus on | What not to include |
 | :---- | :---- | :---- |
-| Team | How did we discover the issue? Granular details of system characteristics during the outage Granular details on specific set of changes done Learnings | Things that folks on team will already know list of services what do they do … |
+| Team | How did we discover the issue? Granular details of system characteristics during the outage Granular details on specific set of changes done Learnings | Things that folks on the team will already know the list of services, what do they do, etc. |
 | Executives | Impact in terms of customer experience Monetary impact Likelihood of repetition | Architecture diagram, call graphs, etc. Jargons |
 
 ## Write simply
@@ -44,7 +44,7 @@ Let’s say you’re writing about updates & work done post an outage. What you 
 Longer sentences tend to increase cognitive load. Above a certain point, you forget how a sentence started by the time you came to the end of it. 
 
 **Use ordinary words and simple sentences**  
-Lot of your readers may not have English as their first language. They would've sufficient technical understanding to get the ideas, but fancy writing get in their way.
+A lot of your readers may not have English as their first language. They would've sufficient technical understanding to get the ideas, but fancy writing gets in their way.
 
 **Remove fluff**  
 If you remove a phrase or a statement from a document and the meaning still remains clear, remove it.
@@ -77,7 +77,7 @@ Ask the “So what” question to every sentence that you write.
 For example, if you say “We built a new platform to run load tests". So what? How does it help me? Instead, we can 
 | Before | After | 
 |:-------|:------|
-| We built a new platform to run load tests | We built a new load test platform that let's anyone run load tests on demand reducing the time to set up from a day to 15 mins |
+| We built a new platform to run load tests | We built a new load test platform that lets anyone run load tests on demand, reducing the time to set up from a day to 15 mins |
 
 The “So what” test can also lead to completely deleting sentences that don't add any value to the document. It also forces us to quantify the impact in our narrative.
 
@@ -118,7 +118,7 @@ Most docs are short-lived and used for point-in-time discussions. However, there
 * Do not write “the new office”, instead name the office.  
 * Degree for a temperature unit will be interpreted as Celsius in India but Fahrenheit in the US.
 
-In addition, add a section at the top of every document that covers who wrote it, when it was written and who approved it (if required). This helps provides necessary context to the reader on how to interpret the rest of the document.
+In addition, add a section at the top of every document that covers who wrote it, when it was written and who approved it (if required). This helps provide necessary context to the reader on how to interpret the rest of the document.
 
 ## Appendix
 
