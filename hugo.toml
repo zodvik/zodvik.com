@@ -2,11 +2,10 @@ baseURL = 'https://zodvik.com/'
 languageCode = 'en-us'
 title = 'nikhil.bafna'
 theme = 'typo'
+googleAnalytics = "G-CR44GQYPC4"
 
 [taxonomies]
 tag = 'tags'
-
-googleAnalytics = "G-CR44GQYPC4"
 
 [params]
 theme = 'light'
