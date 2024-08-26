@@ -6,6 +6,8 @@ theme = 'typo'
 [taxonomies]
 tag = 'tags'
 
+googleAnalytics = "G-CR44GQYPC4"
+
 [params]
 theme = 'light'
 colorPalette = 'eink'
