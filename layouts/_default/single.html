@@ -1,0 +1,66 @@
+{{ define "main" }}
+
+{{ partial "breadcrumbs.html" . }}
+
+<article class="article {{ if .Param "autonumber" }}autonumber{{ end }}">
+  {{ partial "plotter.html" (dict "class" "plotter-article") }}
+
+  <header class="article-header">
+    <h1 class="single-title">{{ .Title }}</h1>
+    {{ with .Param "summary" }}
+      <p class="single-summary">{{ . }}</p>
+    {{ end }}
+
+    <p class="single-readtime">
+      {{ with .Date }}
+        {{ $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" }}
+        {{ $dateHuman := . | time.Format ":date_long" }}
+        <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+      {{ end }}
+
+      {{ if .Param "readTime" }}
+        <span aria-hidden="true">/</span>
+        {{ .ReadingTime }} min read
+      {{ end }}
+    </p>
+  </header>
+
+  {{ if .Param "showTags" }}
+    {{ $taxonomy := "tags" }}
+    {{ with .Param $taxonomy }}
+      <div class="single-tags">
+        {{ range . }}
+          {{ with $.Site.GetPage (printf "/%s/%s" $taxonomy .) -}}
+            <span><a href="{{ .Permalink }}">#{{ .LinkTitle }}</a></span>
+          {{ end }}
+        {{ end }}
+      </div>
+    {{ end }}
+  {{ end }}
+
+  {{ if .Param "toc" }}
+    <aside class="toc">
+      <p><strong>Table of contents</strong></p>
+      {{ .TableOfContents }}
+    </aside>
+  {{ end }}
+
+  <div class="single-content">
+    {{ .Content }}
+    {{ if .Site.Params.giscus.enable }}
+      {{ partial "comments.html" . }}
+    {{ end }}
+  </div>
+</article>
+
+{{ if not (.Param "hidePagination") }}
+  {{ partial "pagination-single.html" . }}
+{{ end }}
+
+{{ if not (.Param "hideBackToTop") }}
+  <div class="back-to-top">
+    <a href="#top">Back to top</a>
+  </div>
+{{ end }}
+
+{{ end }}

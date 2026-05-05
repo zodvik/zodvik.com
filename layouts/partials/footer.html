@@ -1,0 +1,7 @@
+<div class="site-footer">
+  <p>Built with <a href="https://gohugo.io/">Hugo</a>. Typeset for reading.</p>
+</div>
+
+{{ if .Param "math" }}
+{{ partialCached "math.html" . }}
+{{ end }}

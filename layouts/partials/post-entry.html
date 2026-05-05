@@ -1,0 +1,12 @@
+<article class="post-line">
+  {{ $dateFormat := "2 Jan 2006" }}
+  {{ with .Site.Params.listDateFormat }}{{ $dateFormat = . }}{{ end }}
+
+  <a class="post-link" href="{{ .RelPermalink }}">
+    <span class="line-title">{{ .Title }}</span>
+    {{ if .Site.Params.listSummaries }}
+      <span class="line-summary">{{ .Summary }}</span>
+    {{ end }}
+  </a>
+  <time class="line-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time>
+</article>

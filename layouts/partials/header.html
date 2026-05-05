@@ -1,0 +1,18 @@
+<div class="site-header">
+  <a class="site-wordmark" href="/" aria-label="{{ site.Title }} home">
+    <span class="wordmark-dot" aria-hidden="true"></span>
+    {{ site.Title }}
+  </a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    {{ $currentPage := . }}
+    {{ with site.Params.menu }}
+      {{ range . }}
+        {{ $active := or (eq .url $currentPage.RelPermalink) (and (ne .url "/") (hasPrefix $currentPage.RelPermalink .url)) }}
+        <a class="{{ if $active }}is-active{{ end }}" href="{{ .url }}" {{ if and (isset . "newTab") .newTab }}target="_blank" rel="noopener noreferrer"{{ end }}>
+          {{ .name }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </nav>
+</div>

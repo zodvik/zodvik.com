@@ -1,0 +1,34 @@
+{{ define "main" }}
+
+<section class="home-visual" aria-label="Site visual">
+  {{ partial "plotter.html" (dict "class" "plotter-hero") }}
+  <p class="home-bio">Engineer, currently building at PhonePe. Previously at Stripe and Flipkart.</p>
+</section>
+
+{{ if .Site.Params.homeCollection }}
+<section class="list-container home-posts" aria-label="{{ .Site.Params.homeCollectionTitle }}">
+  {{ $pages := where .Site.RegularPages "Section" .Site.Params.homeCollection }}
+
+  <div class="section-heading">
+    <h2>{{ .Site.Params.homeCollectionTitle }}</h2>
+    <span>{{ len $pages }} entries</span>
+  </div>
+
+  {{ $paginationSize := 1 }}
+  {{ if (gt .Site.Params.paginationSize 0) }}
+    {{ $paginationSize = .Site.Params.paginationSize }}
+  {{ end }}
+
+  {{ $paginator := .Paginate $pages $paginationSize }}
+
+  <div class="post-list">
+    {{ range $paginator.Pages }}
+      {{ partial "post-entry.html" . }}
+    {{ end }}
+  </div>
+
+  {{ partial "pagination-controls.html" $paginator }}
+</section>
+{{ end }}
+
+{{ end }}

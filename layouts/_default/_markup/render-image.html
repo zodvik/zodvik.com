@@ -1,0 +1,15 @@
+{{ $url := .Destination | safeURL }}
+{{ $fileNameArray := split $url "#" }}
+{{ $classes := "" }}
+
+{{ range $idx := seq (sub (len $fileNameArray) 1) }}
+  {{ $tag := index $fileNameArray $idx }}
+  {{ $classes = printf "%s img-%s" $classes $tag }}
+{{ end }}
+
+<figure class="{{ $classes }}">
+  <img loading="lazy" decoding="async" alt="{{ .Text }}" src="{{ $url }}">
+  {{ with .Title }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+  {{ end }}
+</figure>

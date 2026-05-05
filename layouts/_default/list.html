@@ -1,0 +1,34 @@
+{{ define "main" }}
+
+<section class="list-container archive-page">
+  {{ partial "plotter.html" (dict "class" "plotter-subtle") }}
+
+  {{ partial "breadcrumbs.html" . }}
+
+  <div class="archive-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="archive-copy">{{ . }}</div>{{ end }}
+  </div>
+
+  {{ $tagsPage := eq .Title "Tags" }}
+  {{ $paginationSize := 1 }}
+  {{ if (gt .Site.Params.paginationSize 0) }}
+    {{ $paginationSize = .Site.Params.paginationSize }}
+  {{ end }}
+
+  {{ $paginator := .Paginate (.Pages) $paginationSize }}
+
+  <div class="post-list">
+    {{ range $paginator.Pages }}
+      {{ if $tagsPage }}
+        {{ partial "tag-entry.html" . }}
+      {{ else }}
+        {{ partial "post-entry.html" . }}
+      {{ end }}
+    {{ end }}
+  </div>
+
+  {{ partial "pagination-controls.html" $paginator }}
+</section>
+
+{{ end }}
