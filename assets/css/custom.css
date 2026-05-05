@@ -484,10 +484,9 @@ hr {
 }
 
 .single-title {
-  max-width: 11ch;
   margin-bottom: 1rem;
-  font-size: clamp(3rem, 8vw, 5.65rem);
-  line-height: 0.98;
+  font-size: clamp(2rem, 5.2vw, 3.6rem);
+  line-height: 1.06;
 }
 
 .single-summary {
