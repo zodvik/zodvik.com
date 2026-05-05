@@ -1,14 +1,15 @@
-{{ $url := .Destination | safeURL }}
-{{ $fileNameArray := split $url "#" }}
-{{ $classes := "" }}
+{{ $parts := split .Destination "#" }}
+{{ $src := index $parts 0 | safeURL }}
+{{ $classes := slice "article-figure" }}
 
-{{ range $idx := seq (sub (len $fileNameArray) 1) }}
-  {{ $tag := index $fileNameArray $idx }}
-  {{ $classes = printf "%s img-%s" $classes $tag }}
+{{ range after 1 $parts }}
+  {{ $classes = $classes | append (printf "img-%s" .) }}
 {{ end }}
 
-<figure class="{{ $classes }}">
-  <img loading="lazy" decoding="async" alt="{{ .Text }}" src="{{ $url }}">
+<figure class="{{ delimit $classes " " }}">
+  <a class="figure-link" href="{{ $src }}" target="_blank" rel="noopener noreferrer" aria-label="Open image in a new tab: {{ .Text }}">
+    <img loading="lazy" decoding="async" alt="{{ .Text }}" src="{{ $src }}">
+  </a>
   {{ with .Title }}
     <figcaption>{{ . | markdownify }}</figcaption>
   {{ end }}
