@@ -1,0 +1,38 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+{{ with .OutputFormats.Get "rss" -}}
+  {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}
+
+{{- if .IsHome -}}
+<meta name="description" content="{{ site.Params.Description }}" />
+{{- else -}}
+<meta name="description" content="{{ .Params.Description }}" />
+{{- end }}
+
+<title>
+    {{ if .IsHome }}
+    {{ site.Title }}
+    {{ else }}
+    {{ printf "%s | %s" .Title site.Title }}
+    {{ end }}
+</title>
+
+<link rel="canonical" href="{{ .Permalink }}" />
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}
+
+{{ if hugo.IsProduction }}
+{{ template "_internal/google_analytics.html" . }}
+{{ end }}
+
+{{ if .Site.Params.umami.enable }}
+  {{ partial "umami.html" . }}
+{{ end }}

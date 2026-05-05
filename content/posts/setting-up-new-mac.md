@@ -5,7 +5,8 @@ date: "2018-02-12"
 
 These are the things that I do when setting up a new Mac.
 
-**Install**
+## Install
+
 - [Google Chrome][chrome]
 - [Homebrew][brew]
 - [Intellij Idea][idea]
@@ -16,7 +17,8 @@ These are the things that I do when setting up a new Mac.
 - Xcode Command Line tools
 - [Docker]
 
-**Using brew**
+## Using brew
+
 - bat
 - csshx
 - fd
@@ -33,7 +35,8 @@ These are the things that I do when setting up a new Mac.
 - ripgrep
 - zookeeper
 
-**Configuration**
+## Configuration
+
 - [.vimrc]
 - [ssh config]
 
