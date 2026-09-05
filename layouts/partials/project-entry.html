@@ -1,0 +1,11 @@
+<article class="post-line project-line">
+  <a class="post-link" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+    <span class="line-title">
+      {{ .name }}<span class="line-arrow" aria-hidden="true">↗</span>
+    </span>
+    {{ with .description }}
+      <span class="line-summary">{{ . }}</span>
+    {{ end }}
+  </a>
+  {{ with .meta }}<span class="line-date">{{ . }}</span>{{ end }}
+</article>

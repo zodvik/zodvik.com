@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+<section class="list-container archive-page">
+  {{ partial "plotter.html" (dict "class" "plotter-subtle") }}
+
+  {{ partial "breadcrumbs.html" . }}
+
+  <div class="archive-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="archive-copy">{{ . }}</div>{{ end }}
+  </div>
+
+  <div class="post-list">
+    {{ range .Params.projects }}
+      {{ partial "project-entry.html" . }}
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

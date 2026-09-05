@@ -448,6 +448,28 @@ hr {
   color: var(--accent-ink);
 }
 
+.project-line .post-link {
+  gap: 0.4rem;
+}
+
+.project-line .line-summary {
+  max-width: 46rem;
+}
+
+.line-arrow {
+  display: inline-block;
+  margin-left: 0.35em;
+  color: var(--content-tertiary);
+  font-size: 0.78em;
+  transform: translateY(-0.08em);
+  transition: color 140ms ease, transform 140ms ease;
+}
+
+.project-line:hover .line-arrow {
+  color: var(--accent-ink);
+  transform: translate(0.12em, -0.2em);
+}
+
 .archive-copy {
   grid-column: 1 / -1;
   max-width: 44rem;
