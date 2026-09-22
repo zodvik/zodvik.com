@@ -18,6 +18,12 @@ name = 'Clean Twitter'
 url = 'https://github.com/midplane/clean-twitter'
 meta = 'browser extension'
 description = 'A browser extension that filters AI slop, rage bait and ads out of your X/Twitter timeline. Each post is scored by a small classification model using your own API key, and you set how strict the filter is.'
+
+[[projects]]
+name = 'try'
+url = 'https://github.com/midplane/simple-try'
+meta = 'shell script'
+description = 'A tiny shell script that fuzzy-finds an experiment directory or creates a new dated one — type to filter, press Enter, and your shell cd\xe2\x80\x99s straight there. One file, one dependency (fzf), nothing else.'
 +++
 
 <!--
