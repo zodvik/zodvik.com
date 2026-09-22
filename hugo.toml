@@ -31,6 +31,10 @@ name = "posts"
 url = "/posts"
 
 [[params.menu]]
+name = "photos"
+url = "/photos"
+
+[[params.menu]]
 name = "projects"
 url = "/projects"
 

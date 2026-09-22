@@ -218,18 +218,8 @@ hr {
 .site-wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
   color: var(--content-primary);
   text-decoration: none;
-}
-
-.wordmark-dot {
-  width: 0.58rem;
-  height: 0.58rem;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  box-shadow: 0 0 0 5px rgba(23, 107, 95, 0.05);
 }
 
 .site-nav {
@@ -759,6 +749,54 @@ th {
 .site-footer a {
   color: var(--content-secondary);
   text-decoration: none;
+}
+
+.photos-page {
+  max-width: var(--main-width);
+}
+
+.photo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4.2rem;
+  margin-top: 1.4rem;
+}
+
+.photo-link {
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(33, 30, 27, 0.08);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 14px 36px var(--shadow-color);
+}
+
+.dark .photo-link {
+  border-color: rgba(241, 237, 230, 0.1);
+}
+
+.photo-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.photo-item figcaption {
+  margin-top: 0.8rem;
+  color: var(--content-tertiary);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.photos-empty {
+  color: var(--content-secondary);
+}
+
+@media screen and (max-width: 760px) {
+  .photo-grid {
+    gap: 2.6rem;
+  }
 }
 
 .not-found {

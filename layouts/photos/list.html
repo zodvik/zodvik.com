@@ -1,0 +1,36 @@
+{{ define "main" }}
+
+<section class="list-container archive-page photos-page">
+  {{ partial "plotter.html" (dict "class" "plotter-subtle") }}
+
+  {{ $images := sort (.Resources.ByType "image") "Name" "desc" }}
+
+  {{ if gt (len $images) 0 }}
+    <div class="photo-grid">
+      {{ range $images }}
+        {{ $hasCaption := ne .Title .Name }}
+        {{ $alt := .Title }}
+        {{ if not $hasCaption }}
+          {{ $stem := .Name | strings.TrimSuffix (path.Ext .Name) }}
+          {{ $alt = humanize $stem }}
+        {{ end }}
+
+        <figure class="photo-item">
+          <a class="photo-link" href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer">
+            <img
+              src="{{ .RelPermalink }}"
+              width="{{ .Width }}"
+              height="{{ .Height }}"
+              loading="lazy"
+              alt="{{ $alt }}">
+          </a>
+          {{ if $hasCaption }}<figcaption>{{ .Title }}</figcaption>{{ end }}
+        </figure>
+      {{ end }}
+    </div>
+  {{ else }}
+    <p class="photos-empty">No photos yet — drop image files into <code>content/photos/</code> and rebuild.</p>
+  {{ end }}
+</section>
+
+{{ end }}
