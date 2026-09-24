@@ -1,0 +1,8 @@
+{{ if or .PrevInSection .NextInSection }}
+<nav aria-label="More writing">
+  <ul>
+    {{ with .NextInSection }}<li>Newer post: <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+    {{ with .PrevInSection }}<li>Older post: <a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+  </ul>
+</nav>
+{{ end }}

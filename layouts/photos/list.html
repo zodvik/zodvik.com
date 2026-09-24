@@ -3,31 +3,144 @@
 <section class="list-container archive-page photos-page">
   {{ partial "plotter.html" (dict "class" "plotter-subtle") }}
 
-  {{ $images := sort (.Resources.ByType "image") "Name" "desc" }}
+  {{ $images := sort (.Resources.ByType "image") "Name" "asc" }}
 
   {{ if gt (len $images) 0 }}
-    <div class="photo-grid">
-      {{ range $images }}
-        {{ $hasCaption := ne .Title .Name }}
-        {{ $alt := .Title }}
-        {{ if not $hasCaption }}
-          {{ $stem := .Name | strings.TrimSuffix (path.Ext .Name) }}
-          {{ $alt = humanize $stem }}
-        {{ end }}
+    {{ $landscape := slice }}
+    {{ $portrait := slice }}
+    {{ range $images }}
+      {{ if gt .Height .Width }}
+        {{ $portrait = $portrait | append . }}
+      {{ else }}
+        {{ $landscape = $landscape | append . }}
+      {{ end }}
+    {{ end }}
 
-        <figure class="photo-item">
-          <a class="photo-link" href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer">
-            <img
-              src="{{ .RelPermalink }}"
-              width="{{ .Width }}"
-              height="{{ .Height }}"
-              loading="lazy"
-              alt="{{ $alt }}">
-          </a>
-          {{ if $hasCaption }}<figcaption>{{ .Title }}</figcaption>{{ end }}
-        </figure>
+    {{ $groups := slice
+      (dict "id" "landscape" "title" "Landscape" "items" $landscape
+            "sizes" "(max-width: 560px) calc(100vw - 48px), (max-width: 1000px) calc(50vw - 36px), 380px")
+      (dict "id" "portrait" "title" "Portrait" "items" $portrait
+            "sizes" "(max-width: 560px) calc(50vw - 30px), (max-width: 1000px) calc(33vw - 32px), 280px")
+    }}
+
+    <div class="photo-gallery" id="gallery">
+      {{ $index := 0 }}
+      {{ range $groups }}
+        {{ if gt (len .items) 0 }}
+          {{ $sizes := .sizes }}
+          <section class="photo-group" aria-labelledby="photo-group-{{ .id }}">
+            <h2 class="photo-group-title" id="photo-group-{{ .id }}">{{ .title }}</h2>
+            <div class="photo-grid photo-grid-{{ .id }}">
+              {{ range .items }}
+                {{ $p := .Params }}
+                {{ $stem := .Name | strings.TrimSuffix (path.Ext .Name) }}
+                {{ $alt := or $p.alt (cond (ne .Title .Name) .Title (humanize $stem)) }}
+                {{ $full := . }}
+                {{ if gt .Width 2400 }}{{ $full = .Resize "2400x q85" }}{{ end }}
+                {{ $srcset := slice }}
+                {{ range slice 480 800 1200 }}
+                  {{ if lt . $full.Width }}
+                    {{ $t := $full.Resize (printf "%dx webp q78" .) }}
+                    {{ $srcset = $srcset | append (printf "%s %dw" $t.RelPermalink .) }}
+                  {{ end }}
+                {{ end }}
+                {{ $color := "" }}
+                {{ with .Colors }}{{ $color = index . 0 }}{{ end }}
+
+                <figure class="photo-card">
+                  <a class="photo-button"
+                     href="{{ $full.RelPermalink }}"
+                     data-index="{{ $index }}"
+                     data-full="{{ $full.RelPermalink }}"
+                     data-alt="{{ $alt }}"
+                     {{ with $color }}style="--tone: {{ . }}"{{ end }}
+                     aria-label="View photograph: {{ $alt }}">
+                    <img
+                      src="{{ $full.RelPermalink }}"
+                      {{ with $srcset }}srcset="{{ delimit . ", " }}" sizes="{{ $sizes }}"{{ end }}
+                      width="{{ $full.Width }}"
+                      height="{{ $full.Height }}"
+                      loading="{{ cond (lt $index 3) "eager" "lazy" }}"
+                      decoding="async"
+                      alt="{{ $alt }}">
+                  </a>
+                </figure>
+                {{ $index = add $index 1 }}
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
       {{ end }}
     </div>
+
+    <dialog class="photo-viewer" id="photo-viewer" aria-label="Photograph viewer">
+      <div class="viewer-top">
+        <span class="viewer-index"></span>
+        <button type="button" class="viewer-close">Close <span aria-hidden="true">×</span></button>
+      </div>
+      <div class="viewer-stage">
+        <button type="button" class="viewer-control viewer-prev" aria-label="Previous photograph">←</button>
+        <img class="viewer-image" alt="">
+        <button type="button" class="viewer-control viewer-next" aria-label="Next photograph">→</button>
+      </div>
+    </dialog>
+
+    <script>
+      (() => {
+        const links = [...document.querySelectorAll(".photo-button")];
+        const viewer = document.getElementById("photo-viewer");
+        if (!links.length || !viewer || !viewer.showModal) return;
+        const img = viewer.querySelector(".viewer-image");
+        const stage = viewer.querySelector(".viewer-stage");
+        const pad = (n) => String(n).padStart(2, "0");
+        let current = 0;
+        let returnFocus = null;
+
+        const show = (i) => {
+          current = (i + links.length) % links.length;
+          const d = links[current].dataset;
+          stage.classList.add("is-loading");
+          img.onload = img.onerror = () => stage.classList.remove("is-loading");
+          img.src = d.full;
+          img.alt = d.alt;
+          if (img.complete && img.naturalWidth) stage.classList.remove("is-loading");
+          for (const step of [1, -1]) new Image().src = links[(current + step + links.length) % links.length].dataset.full;
+          viewer.querySelector(".viewer-index").textContent = `${pad(current + 1)} / ${pad(links.length)}`;
+        };
+
+        links.forEach((link, i) => link.addEventListener("click", (e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+          e.preventDefault();
+          returnFocus = link;
+          show(i);
+          viewer.showModal();
+          document.documentElement.classList.add("viewer-open");
+        }));
+
+        viewer.querySelector(".viewer-close").addEventListener("click", () => viewer.close());
+        viewer.querySelector(".viewer-prev").addEventListener("click", () => show(current - 1));
+        viewer.querySelector(".viewer-next").addEventListener("click", () => show(current + 1));
+        viewer.addEventListener("click", (e) => { if (e.target === viewer || e.target === stage) viewer.close(); });
+        viewer.addEventListener("close", () => {
+          document.documentElement.classList.remove("viewer-open");
+          returnFocus?.focus();
+        });
+        viewer.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault();
+            show(current + (e.key === "ArrowRight" ? 1 : -1));
+          }
+        });
+        let touchX = null;
+        viewer.addEventListener("touchstart", (e) => { touchX = e.changedTouches[0].clientX; }, { passive: true });
+        viewer.addEventListener("touchend", (e) => {
+          if (touchX === null) return;
+          const dx = touchX - e.changedTouches[0].clientX;
+          if (Math.abs(dx) > 60) show(current + (dx > 0 ? 1 : -1));
+          touchX = null;
+        }, { passive: true });
+      })();
+    </script>
   {{ else }}
     <p class="photos-empty">No photos yet — drop image files into <code>content/photos/</code> and rebuild.</p>
   {{ end }}

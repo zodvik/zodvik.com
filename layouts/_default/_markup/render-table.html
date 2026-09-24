@@ -1,0 +1,13 @@
+{{/* Keep Markdown tables free of inline presentation styles. */}}
+<table>
+  <thead>
+    {{ range .THead }}
+      <tr>{{ range . }}<th scope="col">{{ .Text }}</th>{{ end }}</tr>
+    {{ end }}
+  </thead>
+  <tbody>
+    {{ range .TBody }}
+      <tr>{{ range . }}<td>{{ .Text }}</td>{{ end }}</tr>
+    {{ end }}
+  </tbody>
+</table>
